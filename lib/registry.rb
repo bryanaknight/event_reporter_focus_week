@@ -39,4 +39,9 @@ class Registry
     attendees.find {|a| a.first_name.downcase == name.downcase}
     #.enum to return this one object as array?
   end
+
+  def count
+    attendees.count
+  end
+
 end
