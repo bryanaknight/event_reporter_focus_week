@@ -1,3 +1,5 @@
+require './lib/command_runner'
+
 class CommandInterpreter
   attr_reader :runner
 
@@ -20,6 +22,8 @@ class CommandInterpreter
       run_help(parts[1..-1])
     elsif instruction == "find"
       run_find(parts[1..-1])
+    elsif instruction == "exit"
+      printf "Smell ya later!"
     end
   end
 
@@ -31,8 +35,9 @@ class CommandInterpreter
   def run_queue(parts)
     case parts.first
       when "print"
-        order = parts[2]
-        runner.queue_print(order)
+        #order = parts[2]
+        #runner.queue_print(order)
+        runner.queue_print
       when "count"
         runner.queue_count
       when "clear"
@@ -56,7 +61,8 @@ class CommandInterpreter
   def run_find(parts)
     attribute = parts.first 
     criteria = parts[1..-1].join(" ")
-    runner.find(attribute, criteria)
+    runner.send("find_attendees_by_#{attribute}", criteria)
+
   end
 
 end
